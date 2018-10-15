@@ -22,15 +22,15 @@ windowBind({"ctrl", "alt"}, {
 
 -- * Set Window Position on screen
 windowBind({"ctrl", "alt", "cmd"}, {
-  m = wm.maximizeWindow,    -- ⌃⌥⌘ + M
-  c = wm.centerOnScreen,    -- ⌃⌥⌘ + C
   left = wm.leftHalf,       -- ⌃⌥⌘ + ←
   right = wm.rightHalf,     -- ⌃⌥⌘ + →
   up = wm.topHalf,          -- ⌃⌥⌘ + ↑
   down = wm.bottomHalf      -- ⌃⌥⌘ + ↓
 })
 -- * Set Window Position on screen
-windowBind({"ctrl", "alt", "shift"}, {
+windowBind({"ctrl", "cmd"}, {
+  m = wm.maximizeWindow,    -- ⌃⌥⌘ + M
+  c = wm.centerOnScreen,    -- ⌃⌥⌘ + C
   left = wm.rightToLeft,      -- ⌃⌥⇧ + ←
   right = wm.rightToRight,    -- ⌃⌥⇧ + →
   up = wm.bottomUp,           -- ⌃⌥⇧ + ↑
@@ -48,4 +48,9 @@ windowBind({"alt", "cmd", "shift"}, {
 windowBind({"ctrl", "alt", "cmd"}, {
   u = wm.cycleLeft,          -- ⌃⌥⌘ + u
   i = wm.cycleRight          -- ⌃⌥⌘ + i
+})
+
+windowBind({"ctrl", "cmd"}, {
+  u = wm.leftMonitor,          -- ⌃⌥⌘ + u
+  l = wm.rightMonitor          -- ⌃⌥⌘ + i
 })

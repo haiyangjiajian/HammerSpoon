@@ -69,6 +69,9 @@ function windowMeta.new()
   self.screen = window.focusedWindow():screen()
   self.windowGrid = grid.get(self.window)
   self.screenGrid = grid.getGrid(self.screen)
+  self.previous = window.focusedWindow():screen():previous()
+  self.next = window.focusedWindow():screen():next()
+
   
   return self
 end
@@ -229,6 +232,37 @@ module.topDown = function ()
   else
     hs.alert.show("Small Enough :)")
   end
+end
+
+-- move cursor to previous monitor
+module.leftMonitor = function ()
+  local this = windowMeta.new()
+  focusScreen(this.previous)
+end
+
+-- move cursor to next monitor
+module.rightMonitor = function ()
+  local this = windowMeta.new()
+  focusScreen(this.next)
+end
+
+function isInScreen(screen, win)
+  return win:screen() == screen
+end
+
+function focusScreen(screen)
+  --Get windows within screen, ordered from front to back.
+  --If no windows exist, bring focus to desktop. Otherwise, set focus on
+  --front-most application window.
+  local windows = hs.fnutils.filter(
+      window.orderedWindows(),
+      hs.fnutils.partial(isInScreen, screen))
+  local windowToFocus = #windows > 0 and windows[1] or window.desktop()
+  windowToFocus:focus()
+
+  -- move cursor to center of screen
+  local pt = hs.geometry.rectMidPoint(screen:fullFrame())
+  hs.mouse.setAbsolutePosition(pt)
 end
 
 return module
